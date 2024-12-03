@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Path } from '../../const'
+import { Path } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
@@ -21,7 +21,8 @@ function App({rentalQuantity}: AppProps): JSX.Element {
           <PrivateRoute>
             <FavoritesPage />
           </PrivateRoute>
-        }/>
+        }
+        />
         <Route path={Path.Offer} element={<OfferPage />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
