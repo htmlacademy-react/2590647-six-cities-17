@@ -1,25 +1,39 @@
 .not-found {
+  padding-top: 100px;
+}
+
+.not-found__wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 25px;
+}
+
+.not-found__number {
+  font-size: 15rem;
+  line-height: 1;
 }
 
 .not-found__title {
   font-size: 6rem;
+  line-height: 1;
 }
 
-.not-found__title span {
+.not-found__title span,
+.not-found__link,
+.not-found__number span {
   color: #4481c3;
 }
 
 .not-found__subtitle,
 .not-found__link {
   font-size: 3rem;
+  line-height: 1;
 }
 
-.not-found__link {
+.not-found__link:hover,
+.not-found__link:focus-visible {
   text-decoration: underline;
   text-decoration-color: #4481c3;
-  text-underline-offset: 10px;
+  text-underline-offset: 15px;
 }
