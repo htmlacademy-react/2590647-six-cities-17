@@ -1,12 +1,22 @@
-import Card from '../../components/card/card';
+import { Offer } from '../../types/offer';
+import { useState } from 'react';
+import ListOffers from '../../components/list-offers/list-offers';
 import Header from '../../components/header/header';
 import CitiesList from '../../components/cities-list/cities-list';
 
 type MainPageProps = {
   rentalQuantity: number;
+  offers: Offer[];
 }
 
-function MainPage({rentalQuantity}: MainPageProps): JSX.Element {
+function MainPage({rentalQuantity, offers}: MainPageProps): JSX.Element {
+
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
+  const handleMouseOffer = (offerId: string | null) => {
+    setActiveOfferId(offerId);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -19,7 +29,7 @@ function MainPage({rentalQuantity}: MainPageProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{rentalQuantity} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by</span>&nbsp;
                 <span className="places__sorting-type" tabIndex={0}>
                   Popular
                   <svg className="places__sorting-arrow" width={7} height={4}>
@@ -44,13 +54,7 @@ function MainPage({rentalQuantity}: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-              </div>
+              <ListOffers offers={offers} onHandleMouseOffer={handleMouseOffer}></ListOffers>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />

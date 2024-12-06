@@ -8,3 +8,9 @@ export const Path = {
   Favorites: '/favorites',
   Offer: '/offer/:id'
 } as const;
+
+export const enum LoginStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UMKNOWN',
+}
