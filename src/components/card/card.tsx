@@ -4,13 +4,13 @@ import { Path } from '../../const';
 
 type CardProps = {
   offer: Offer;
-  onMouseOverCard?: (offerId: string) => void;
+  onHandleMouseOffer?: (offerId: string | null) => void;
   activeOfferId?: string;
   isFavoritePage?: boolean;
   isOfferPage?: boolean;
 };
 
-function Card({ offer, onMouseOverCard, activeOfferId, isFavoritePage, isOfferPage }: CardProps): JSX.Element {
+function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOfferPage }: CardProps): JSX.Element {
   const CardURL = Path.Offer.replace(':id', offer.id);
   const isActive = offer.id === activeOfferId;
 
@@ -31,10 +31,11 @@ function Card({ offer, onMouseOverCard, activeOfferId, isFavoritePage, isOfferPa
   const priceClass = isFavoritePage ? 'favorites__price' : 'place-card__price';
 
   return (
-    <article
-      className={`${cardClass} place-card ${isActive ? 'place-card--active' : ''}`}
-      onMouseOver={() => onMouseOverCard && onMouseOverCard(offer.id)}
-    >
+      <article
+        className={`${cardClass} place-card ${isActive ? 'place-card--active' : ''}`}
+        onMouseEnter={() => onHandleMouseOffer?.(offer.id)}
+        onMouseLeave={() => onHandleMouseOffer?.(null)}
+      >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

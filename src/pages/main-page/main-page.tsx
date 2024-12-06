@@ -1,4 +1,5 @@
 import { Offer } from '../../types/offer';
+import { useState } from 'react';
 import ListOffers from '../../components/list-offers/list-offers';
 import Header from '../../components/header/header';
 import CitiesList from '../../components/cities-list/cities-list';
@@ -9,6 +10,13 @@ type MainPageProps = {
 }
 
 function MainPage({rentalQuantity, offers}: MainPageProps): JSX.Element {
+
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
+  const handleMouseOffer = (offerId: string | null) => {
+    setActiveOfferId(offerId);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -46,7 +54,7 @@ function MainPage({rentalQuantity, offers}: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <ListOffers offers={offers}></ListOffers>
+              <ListOffers offers={offers} onHandleMouseOffer={handleMouseOffer}></ListOffers>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />

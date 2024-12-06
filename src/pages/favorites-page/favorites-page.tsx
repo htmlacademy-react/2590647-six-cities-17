@@ -1,4 +1,5 @@
 import { Offer } from '../../types/offer';
+import { groupOffersByCity } from '../../utils';
 import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
@@ -6,13 +7,6 @@ import Footer from '../../components/footer/footer';
 type FavoritesPageProps = {
   offers: Offer[];
 }
-
-const groupOffersByCity = (offers: Offer[]) =>
-  offers.reduce((acc, offer) => {
-    acc[offer.city] = acc[offer.city] || [];
-    acc[offer.city].push(offer);
-    return acc;
-  }, {} as Record<string, Offer[]>);
 
 function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
 
