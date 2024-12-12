@@ -1,5 +1,6 @@
-import { Offer } from '../../types/offer';
+import { City, Offer, Point} from '../../types/offer';
 import { useState } from 'react';
+import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
 import Header from '../../components/header/header';
 import CitiesList from '../../components/cities-list/cities-list';
@@ -11,11 +12,14 @@ type MainPageProps = {
 
 function MainPage({rentalQuantity, offers}: MainPageProps): JSX.Element {
 
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
+  const city: City = offers[0].city;
 
-  const handleMouseOffer = (offerId: string | null) => {
-    setActiveOfferId(offerId);
-  };
+  function handleMouseOffer (pointName: string) {
+    const currentPoint = offers.find((offer) => offer.location.title === pointName);
+
+    setSelectedPoint(currentPoint?.location);
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -57,7 +61,9 @@ function MainPage({rentalQuantity, offers}: MainPageProps): JSX.Element {
               <ListOffers offers={offers} onHandleMouseOffer={handleMouseOffer}></ListOffers>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+            <section className="cities__map map">
+              <Map city={city} points={offers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
+            </section>
             </div>
           </div>
         </div>

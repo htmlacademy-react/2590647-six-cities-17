@@ -3,7 +3,7 @@ import Card from '../../components/card/card';
 
 type ListOffersProps = {
   offers: Offer[];
-  onHandleMouseOffer: (offerId: string | null) => void;
+  onHandleMouseOffer: (offerId: string) => void;
 }
 
 
