@@ -4,7 +4,7 @@ import { Path } from '../../const';
 
 type CardProps = {
   offer: Offer;
-  onHandleMouseOffer: (offerId: string) => void;
+  onHandleMouseOffer?: (offerId: string) => void;
   activeOfferId?: string;
   isFavoritePage?: boolean;
   isOfferPage?: boolean;
@@ -33,7 +33,11 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
   return (
     <article
       className={`${cardClass} place-card ${isActive ? 'place-card--active' : ''}`}
-      onMouseOver={() => onHandleMouseOffer(offer.location.title)}
+      onMouseOver={() => {
+        if (onHandleMouseOffer) {
+          onHandleMouseOffer(offer.location.title);
+        }
+      }}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
