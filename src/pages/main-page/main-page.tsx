@@ -15,7 +15,7 @@ function MainPage({rentalQuantity, offers}: MainPageProps): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
   const city: City = offers[0].city;
 
-  function handleMouseOffer (pointName: string) {
+  function handleMouseOffer (pointName: string | null) {
     const currentPoint = offers.find((offer) => offer.location.title === pointName);
 
     setSelectedPoint(currentPoint?.location);
