@@ -61,9 +61,9 @@ function MainPage({rentalQuantity, offers}: MainPageProps): JSX.Element {
               <ListOffers offers={offers} onHandleMouseOffer={handleMouseOffer}></ListOffers>
             </section>
             <div className="cities__right-section">
-            <section className="cities__map map">
-              <Map city={city} points={offers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
-            </section>
+              <section className="cities__map map">
+                <Map city={city} points={offers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
+              </section>
             </div>
           </div>
         </div>
