@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { Path } from '../../const';
+import { getUrlById } from '../../utils';
 
 type CardProps = {
   offer: Offer;
@@ -11,7 +11,7 @@ type CardProps = {
 };
 
 function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOfferPage }: CardProps): JSX.Element {
-  const CardURL = Path.Offer.replace(':id', offer.id);
+  const CardURL = getUrlById(offer.id);
   const isActive = offer.id === activeOfferId;
 
   let cardClass = '';
