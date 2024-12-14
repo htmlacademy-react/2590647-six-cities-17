@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { Path } from '../../const';
+import { getUrlById } from '../../utils';
 
 type CardProps = {
   offer: Offer;
@@ -11,7 +11,7 @@ type CardProps = {
 };
 
 function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOfferPage }: CardProps): JSX.Element {
-  const CardURL = Path.Offer.replace(':id', offer.id);
+  const CardURL = getUrlById(offer.id);
   const isActive = offer.id === activeOfferId;
 
   let cardClass = '';
@@ -31,11 +31,19 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
   const priceClass = isFavoritePage ? 'favorites__price' : 'place-card__price';
 
   return (
-      <article
-        className={`${cardClass} place-card ${isActive ? 'place-card--active' : ''}`}
-        onMouseEnter={() => onHandleMouseOffer?.(offer.id)}
-        onMouseLeave={() => onHandleMouseOffer?.(null)}
-      >
+    <article
+      className={`${cardClass} place-card ${isActive ? 'place-card--active' : ''}`}
+      onMouseEnter={() => {
+        if (onHandleMouseOffer) {
+          onHandleMouseOffer(offer.location.title);
+        }
+      }}
+      onMouseLeave={() => {
+        if (onHandleMouseOffer) {
+          onHandleMouseOffer(null);
+        }
+      }}
+    >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
