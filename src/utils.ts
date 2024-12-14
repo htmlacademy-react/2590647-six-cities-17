@@ -8,5 +8,5 @@ export const groupOffersByCity = (offers: Offer[]) =>
   }, {} as Record<string, Offer[]>);
 
 export function getUrlById (id: string) {
-    return `/offer/${id}`;
-  }
+  return `/offer/${id}`;
+}
