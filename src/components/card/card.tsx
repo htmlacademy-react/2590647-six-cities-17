@@ -1,6 +1,7 @@
-import { Offer } from '../../types/offer';
+import { Offer, OffersNearby } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../../utils';
+import { STAR_WIDTH_FACTOR } from '../../const';
 
 type CardProps = {
   offer: Offer;
@@ -80,8 +81,8 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating}%` }} />
-            <span className="visually-hidden">Rating</span>
+            <span style={{ width: `${Math.round(offer.rating) * STAR_WIDTH_FACTOR}%` }} />
+            <span className="visually-hidden">{offer.rating}</span>
           </div>
         </div>
         <h2 className="place-card__name">
