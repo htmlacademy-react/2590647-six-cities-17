@@ -1,5 +1,5 @@
 
-import { Offer } from '../types/offer';
+import { Offer, OffersNearby } from '../types/offer';
 
 export const Offers: Offer[] = [
   {
@@ -29,7 +29,7 @@ export const Offers: Offer[] = [
       zoom: 8,
     },
     price: 120,
-    rating: 80,
+    rating: 4,
     bedroomCount: 2,
     maxGuestCount: 5,
     isPremium: true,
@@ -67,7 +67,7 @@ export const Offers: Offer[] = [
       zoom: 8,
     },
     price: 50,
-    rating: 80,
+    rating: 3.1,
     bedroomCount: 1,
     maxGuestCount: 3,
     isPremium: false,
@@ -105,7 +105,7 @@ export const Offers: Offer[] = [
       zoom: 8,
     },
     price: 80,
-    rating: 80,
+    rating: 3.6,
     bedroomCount: 1,
     maxGuestCount: 4,
     isPremium: false,
@@ -143,7 +143,7 @@ export const Offers: Offer[] = [
       zoom: 8,
     },
     price: 100,
-    rating: 100,
+    rating: 5,
     bedroomCount: 2,
     maxGuestCount: 6,
     isPremium: true,
@@ -154,4 +154,43 @@ export const Offers: Offer[] = [
       isPro: true
     }
   }
+];
+
+export const NearbyOffers: OffersNearby[] = [
+  {
+    id: '1',
+    offers: [
+      Offers[0],
+      Offers[1],
+      Offers[2],
+      Offers[3]
+    ],
+  },
+  {
+    id: '2',
+    offers: [
+      Offers[0],
+      Offers[1],
+      Offers[2],
+      Offers[3]
+    ],
+  },
+  {
+    id: '3',
+    offers: [
+      Offers[0],
+      Offers[1],
+      Offers[2],
+      Offers[3]
+    ],
+  },
+  {
+    id: '4',
+    offers: [
+      Offers[0],
+      Offers[1],
+      Offers[2],
+      Offers[3]
+    ],
+  },
 ];

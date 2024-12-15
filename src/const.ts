@@ -1,6 +1,8 @@
-export const Setting = {
-  rentalQuantity: 312
-};
+export const STAR_WIDTH_FACTOR = 20;
+
+export const COMMENTS_LIMIT = 10;
+
+export const NEARBLY_OFFERS_COUNT = 3;
 
 export const Path = {
   Main: '/',

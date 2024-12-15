@@ -42,3 +42,9 @@ export type Offer = {
   isFavorite: boolean;
   host: Host;
 };
+
+export type OffersNearby = {
+  id: string;
+  offers: Offer[];
+}
+

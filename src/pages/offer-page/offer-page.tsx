@@ -1,15 +1,23 @@
-import { Offer } from '../../types/offer';
+import { Offer, OffersNearby} from '../../types/offer';
+import { UserComment } from '../../types/comment';
 import { useParams } from 'react-router-dom';
-import Card from '../../components/card/card';
 import Header from '../../components/header/header';
+import Card from '../../components/card/card';
+import Map from '../../components/map/map';
 import FormComment from '../../components/form-comment/form-comment';
+import CommentsList from '../../components/comments-list/comments-list';
+import { STAR_WIDTH_FACTOR, NEARBLY_OFFERS_COUNT } from '../../const';
 
 type OfferPageProps = {
   offers: Offer[];
+  userComments: UserComment[];
+  nearbyOffers: OffersNearby[];
 }
-function OfferPage({ offers }: OfferPageProps): JSX.Element {
+
+function OfferPage({ offers, userComments, nearbyOffers }: OfferPageProps): JSX.Element {
   const { id } = useParams();
   const offerById = offers.find((offer) => offer.id === id) as Offer;
+  const nearbyOffersById = nearbyOffers.find((nearbyOffer) => nearbyOffer.id === id) as OffersNearby;
 
   return (
 
@@ -49,10 +57,10 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${offerById.rating}%` }} />
+                  <span style={{ width: `${Math.round(offerById.rating) * STAR_WIDTH_FACTOR}%` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{offerById.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{offerById.type}</li>
@@ -110,60 +118,30 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
+                  Reviews · <span className="reviews__amount">{userComments.length}</span>
                 </h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img
-                          className="reviews__avatar user__avatar"
-                          src="img/avatar-max.jpg"
-                          width={54}
-                          height={54}
-                          alt="Reviews avatar"
-                        />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{ width: '80%' }} />
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by
-                        the unique lightness of Amsterdam. The building is green and
-                        from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">
-                        April 2019
-                      </time>
-                    </div>
-                  </li>
-                </ul>
-
-                <FormComment></FormComment>
+                <CommentsList userComments={userComments} />
+                <FormComment/>
 
               </section>
             </div>
           </div>
-          <section className="offer__map map" />
-        </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighbourhood
-            </h2>
-            <div className="near-places__list places__list">
-              {offers.slice(0, 3).map((offer) => (
-                <Card key={offer.id} offer={offer} isOfferPage />
-              ))}
-            </div>
+          <section className="offer__map map">
+            <Map city={offerById.city} points={nearbyOffersById.offers.map((offer) => offer.location)} selectedPoint={offerById.location} />
           </section>
-        </div>
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighbourhood
+              </h2>
+              <div className="near-places__list places__list">
+                {nearbyOffersById.offers.slice(0, NEARBLY_OFFERS_COUNT).map((offer) => (
+                  <Card key={offer.id} offer={offer} isOfferPage />
+                ))}
+              </div>
+            </section>
+          </div>
+        </section>
       </main>
     </div>
 
