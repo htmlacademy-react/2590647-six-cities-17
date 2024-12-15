@@ -1,4 +1,4 @@
-import { Offer, OffersNearby } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../../utils';
 import { STAR_WIDTH_FACTOR } from '../../const';
