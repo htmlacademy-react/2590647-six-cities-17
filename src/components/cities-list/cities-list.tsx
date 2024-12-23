@@ -8,7 +8,7 @@ type CitiesProbs = {
 }
 
 function CitiesList({currentCity}: CitiesProbs): JSX.Element {
-   const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   return (
 
@@ -17,13 +17,13 @@ function CitiesList({currentCity}: CitiesProbs): JSX.Element {
         <ul className="locations__list tabs__list">
           {Object.values(Cities).map((city) => (
             <li key={city.name} className="locations__item">
-              <Link 
-                className={`locations__item-link tabs__item ${currentCity === city.name ? 'tabs__item--active' : ''}`} 
+              <Link
+                className={`locations__item-link tabs__item ${currentCity === city.name ? 'tabs__item--active' : ''}`}
                 to={''}
                 onClick={(evt) => {
                   evt.preventDefault();
-                  dispatch(changeCity(city))
-                }}  
+                  dispatch(changeCity(city));
+                }}
               >
                 <span>{city.name}</span>
               </Link>

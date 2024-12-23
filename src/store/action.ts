@@ -1,5 +1,5 @@
-import { createAction } from "@reduxjs/toolkit";
-import { Offer, City } from "../types/offer";
+import { createAction } from '@reduxjs/toolkit';
+import { Offer, City } from '../types/offer';
 
 export const Action = {
   CHANGE_CITY: 'changeCity',

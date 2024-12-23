@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-store.dispatch(saveOffers(Offers))
+store.dispatch(saveOffers(Offers));
 
 root.render(
   <React.StrictMode>

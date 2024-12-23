@@ -16,5 +16,5 @@ export const reducer = createReducer(initialState, (builder) => {
 
     .addCase(changeCity, (state, action) => {
       state.currentCity = action.payload;
-    })
+    });
 });

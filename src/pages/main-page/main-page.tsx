@@ -18,7 +18,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
   const offerCards = useAppSelector((state)=> state.offer);
   const City = useAppSelector((state) => state.currentCity);
-  
+
   const cityOfferCards = offerCards.filter((offerCard) => offerCard.city.name === City.name);
 
   function handleMouseOffer (pointName: string | null) {
@@ -33,7 +33,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList currentCity={City.name}/>
         <div className="cities">
-          <div className={`cities__places-container container  ${cityOfferCards.length > 0 ? '' : 'cities__places-container-empty'}`}> 
+          <div className={`cities__places-container container  ${cityOfferCards.length > 0 ? '' : 'cities__places-container-empty'}`}>
             {cityOfferCards.length > 0 ?
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
@@ -68,11 +68,11 @@ function MainPage({offers}: MainPageProps): JSX.Element {
               </section> :
               <OfferListEmpty currentCity={City.name}/>}
             <div className="cities__right-section">
-              {cityOfferCards.length > 0 ? 
+              {cityOfferCards.length > 0 ?
                 <section className="cities__map map">
                   <Map city={City} points={cityOfferCards.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
                 </section>
-              : null}
+                : null}
             </div>
           </div>
         </div>
