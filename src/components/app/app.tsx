@@ -1,34 +1,37 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Path, LoginStatus } from '../../const';
-import { Offer, OffersNearby } from '../../types/offer';
-import { UserComment } from '../../types/comment';
+import { Path } from '../../const';
+// import { LoginStatus } from '../../const';
+import { useAppSelector } from '../../store/hooks';
 import MainPage from '../../pages/main-page/main-page';
-import FavoritesPage from '../../pages/favorites-page/favorites-page';
+// import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
-import OfferPage from '../../pages/offer-page/offer-page';
+// import OfferPage from '../../pages/offer-page/offer-page';
 import ErrorPage from '../../pages/error-page/error-page';
-import PrivateRoute from '../private-route/private-route';
+// import PrivateRoute from '../private-route/private-route';
+import Loading from '../../pages/loading/loading';
 
 
-type AppProps = {
-  offers: Offer[];
-  userComments: UserComment[];
-  nearbyOffers: OffersNearby[];
-}
+function App(): JSX.Element {
+  const isLoading = useAppSelector((state) => state.isLoading);
 
-function App({offers, userComments, nearbyOffers}: AppProps): JSX.Element {
+  if (isLoading) {
+    return (
+      <Loading/>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={Path.Main} element={<MainPage offers={offers}/>} />
+        <Route path={Path.Main} element={<MainPage/>} />
         <Route path={Path.Login} element={<LoginPage />} />
-        <Route path={Path.Favorites} element={
+        {/* <Route path={Path.Favorites} element={
           <PrivateRoute loginStatus={LoginStatus.Auth}>
-            <FavoritesPage offers={offers}/>
+            <FavoritesPage/>
           </PrivateRoute>
         }
-        />
-        <Route path={Path.Offer} element={<OfferPage offers={offers} userComments={userComments} nearbyOffers={nearbyOffers}/>} />
+        /> */}
+        {/* <Route path={Path.Offer} element={<OfferPage userComments={userComments}/>} /> */}
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

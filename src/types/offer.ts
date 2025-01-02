@@ -6,7 +6,6 @@ export type City = {
 };
 
 export type Point = {
-  title: string;
   latitude: number;
   longitude: number;
   zoom: number;
@@ -29,7 +28,7 @@ export type Offer = {
   id: string;
   title: string;
   description: string;
-  previewPictureURL: string;
+  previewImage: string;
   pictures: Pictures;
   type: string;
   city: City;
