@@ -1,4 +1,5 @@
 import { Offer } from './types/offer';
+import { Sort } from './const';
 
 export const groupOffersByCity = (offers: Offer[]) =>
   offers.reduce((acc, offer) => {
@@ -30,4 +31,20 @@ export function getSortedItemsByDate<T extends { date: string }>(
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, limit);
+}
+
+export function sortOffersByType(offers: Offer[], sortTypeName: Sort): Offer[] {
+  const sortedOffers = offers.map((offer) => offer);
+  switch (sortTypeName) {
+    case Sort.Popular:
+      return sortedOffers;
+    case Sort.PriceLow:
+      return sortedOffers.sort((offerA, offerB) => offerA.price - offerB.price);
+    case Sort.PriceHigh:
+      return sortedOffers.sort((offerA, offerB) => offerB.price - offerA.price);
+    case Sort.Rated:
+      return sortedOffers.sort((offerA, offerB) => offerB.rating - offerA.rating);
+    default:
+      return sortedOffers;
+  }
 }
