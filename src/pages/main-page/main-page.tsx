@@ -1,4 +1,4 @@
-import { Offer, Point} from '../../types/offer';
+import { Point} from '../../types/offer';
 import { useState } from 'react';
 import { useAppSelector } from '../../store/hooks';
 import { selectCityOfferCards, selectCurrentCity } from '../../store/selectors';
@@ -10,11 +10,7 @@ import CitiesList from '../../components/cities-list/cities-list';
 import OfferListEmpty from '../../components/offer-empty/offer-empty';
 import Sorting from '../../components/sorting/sorting';
 
-type MainPageProps = {
-  offers: Offer[];
-}
-
-function MainPage({offers}: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
 
@@ -23,8 +19,8 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const currentSort = useAppSelector((state) => state.currentSort);
   const sortedOfferCards = sortOffersByType(cityOfferCards, currentSort);
 
-  function handleMouseOffer (pointName: string | null) {
-    const currentPoint = offers.find((offer) => offer.location.title === pointName);
+  function handleMouseOffer (point: Point | null) {
+    const currentPoint = cityOfferCards.find((offer) => offer.location === point);
     setSelectedPoint(currentPoint?.location);
   }
 
