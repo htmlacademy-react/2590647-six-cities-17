@@ -1,6 +1,32 @@
+import { FormEvent, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
+import { loginAction } from '../../store/api-actions';
+import { store } from '../../store';
+import { useAppSelector } from '../../store/hooks';
+import { LoginStatus, Path } from '../../const';
 import Header from '../../components/header/header';
 
 function LoginPage(): JSX.Element {
+  const isLoggedIn = useAppSelector((state) => state.authorizationStatus) === LoginStatus.Auth;
+
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  function submitHandler (evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    if (inputEmailRef.current && inputPasswordRef.current) {
+      const email = inputEmailRef.current.value;
+      const password = inputPasswordRef.current.value;
+      store.dispatch(loginAction({email: email, password: password}));
+    }
+  }
+
+  if (isLoggedIn) {
+    return (
+      <Navigate to={Path.Main} />
+    );
+  }
+
   return (
     <div className="page page--gray page--login">
       <Header/>
@@ -9,7 +35,7 @@ function LoginPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" onSubmit={submitHandler}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -17,6 +43,7 @@ function LoginPage(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  ref={inputEmailRef}
                   required
                 />
               </div>
@@ -27,6 +54,7 @@ function LoginPage(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  ref={inputPasswordRef}
                   required
                 />
               </div>

@@ -74,5 +74,6 @@ export enum Sort {
 export const ApiRoute = {
   Offers: '/offers',
   Favorite: '/favorite',
-  Login: '/login'
+  Login: '/login',
+  Logout: '/logout'
 };

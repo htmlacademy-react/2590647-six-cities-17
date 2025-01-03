@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Path } from '../../const';
-// import { LoginStatus } from '../../const';
 import { useAppSelector } from '../../store/hooks';
 import MainPage from '../../pages/main-page/main-page';
 // import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -26,12 +25,12 @@ function App(): JSX.Element {
         <Route path={Path.Main} element={<MainPage/>} />
         <Route path={Path.Login} element={<LoginPage />} />
         {/* <Route path={Path.Favorites} element={
-          <PrivateRoute loginStatus={LoginStatus.Auth}>
+          <PrivateRoute>
             <FavoritesPage/>
           </PrivateRoute>
         }
         /> */}
-        {/* <Route path={Path.Offer} element={<OfferPage userComments={userComments}/>} /> */}
+        {/* <Route path={Path.Offer} element={<OfferPage/>} /> */}
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
