@@ -1,11 +1,11 @@
-import { Offer } from '../../types/offer';
+import { Offers } from '../../types/offer';
 import { groupOffersByCity } from '../../utils';
 import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 
 type FavoritesPageProps = {
-  offers: Offer[];
+  offers: Offers[];
 }
 
 function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
