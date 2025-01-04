@@ -1,23 +1,50 @@
-import { Offer, OffersNearby} from '../../types/offer';
-import { UserComment } from '../../types/comment';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { getOfferByID, fetchNearbyOffers, fetchOfferComments } from '../../store/api-actions';
+import { selectOfferById, selectIsLoadingOffer, selectOffersNearById, selectIsLoadingNearbyOffer, selectIsAuthorized } from '../../store/selectors';
+import ErrorPage from '../../pages/error-page/error-page';
 import Header from '../../components/header/header';
+import Loading from '../../pages/loading/loading';
 import Card from '../../components/card/card';
 import Map from '../../components/map/map';
 import FormComment from '../../components/form-comment/form-comment';
 import CommentsList from '../../components/comments-list/comments-list';
 import { STAR_WIDTH_FACTOR, NEARBLY_OFFERS_COUNT } from '../../const';
 
-type OfferPageProps = {
-  offers: Offer[];
-  userComments: UserComment[];
-  nearbyOffers: OffersNearby[];
-}
-
-function OfferPage({ offers, userComments, nearbyOffers }: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
   const { id } = useParams();
-  const offerById = offers.find((offer) => offer.id === id) as Offer;
-  const nearbyOffersById = nearbyOffers.find((nearbyOffer) => nearbyOffer.id === id) as OffersNearby;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getOfferByID(id))
+        .then((response) => {
+          if (response.meta.requestStatus === 'fulfilled') {
+            dispatch(fetchNearbyOffers(id));
+            dispatch(fetchOfferComments(id));
+          }
+        });
+
+    }
+  }, [id, dispatch]);
+
+  const isAuthorized = useAppSelector(selectIsAuthorized);
+  const offerById = useAppSelector(selectOfferById);
+  const isLoadingOffer = useAppSelector(selectIsLoadingOffer);
+  const offersNearById = useAppSelector(selectOffersNearById);
+  const isLoadingNearbyOffer = useAppSelector(selectIsLoadingNearbyOffer);
+  const offersNearBy = offersNearById.slice(0, NEARBLY_OFFERS_COUNT);
+
+  if (isLoadingOffer) {
+    return (
+      <Loading/>
+    );
+  }
+
+  if (!offerById) {
+    return <ErrorPage />;
+  }
 
   return (
 
@@ -28,11 +55,11 @@ function OfferPage({ offers, userComments, nearbyOffers }: OfferPageProps): JSX.
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offerById.pictures.map((picture) => (
-                <div className="offer__image-wrapper" key={picture.id}>
+              {offerById.images.map((image) => (
+                <div className="offer__image-wrapper" key={image}>
                   <img
                     className="offer__image"
-                    src={picture.url}
+                    src={image}
                     alt={'Photo studio'}
                   />
                 </div>
@@ -78,16 +105,11 @@ function OfferPage({ offers, userComments, nearbyOffers }: OfferPageProps): JSX.
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  <li className="offer__inside-item">Wi-Fi</li>
-                  <li className="offer__inside-item">Washing machine</li>
-                  <li className="offer__inside-item">Towels</li>
-                  <li className="offer__inside-item">Heating</li>
-                  <li className="offer__inside-item">Coffee machine</li>
-                  <li className="offer__inside-item">Baby seat</li>
-                  <li className="offer__inside-item">Kitchen</li>
-                  <li className="offer__inside-item">Dishwasher</li>
-                  <li className="offer__inside-item">Cabel TV</li>
-                  <li className="offer__inside-item">Fridge</li>
+                  {offerById.goods.map((good) => (
+                    <li className="offer__inside-item" key={good}>
+                      { good }
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="offer__host">
@@ -96,7 +118,7 @@ function OfferPage({ offers, userComments, nearbyOffers }: OfferPageProps): JSX.
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src={offerById.host.avatarURL}
+                      src={offerById.host.avatarUrl}
                       width={74}
                       height={74}
                       alt="Host avatar"
@@ -117,30 +139,36 @@ function OfferPage({ offers, userComments, nearbyOffers }: OfferPageProps): JSX.
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">{userComments.length}</span>
-                </h2>
-                <CommentsList userComments={userComments} />
-                <FormComment/>
-
+                <CommentsList />
+                {isAuthorized && <FormComment offerId={offerById.id} />}
               </section>
             </div>
           </div>
-          <section className="offer__map map">
-            <Map city={offerById.city} points={nearbyOffersById.offers.map((offer) => offer.location)} selectedPoint={offerById.location} />
-          </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                {nearbyOffersById.offers.slice(0, NEARBLY_OFFERS_COUNT).map((offer) => (
-                  <Card key={offer.id} offer={offer} isOfferPage />
-                ))}
+          {isLoadingNearbyOffer ? (
+            <Loading />
+          ) : (
+            <>
+              <section className="offer__map map">
+                <Map
+                  city={offerById.city}
+                  points={offersNearBy.map((offer) => offer.location)}
+                  selectedPoint={offerById.location}
+                />
+              </section>
+              <div className="container">
+                <section className="near-places places">
+                  <h2 className="near-places__title">
+                    Other places in the neighbourhood
+                  </h2>
+                  <div className="near-places__list places__list">
+                    {offersNearBy.map((offer) => (
+                      <Card key={offer.id} offer={offer} isOfferPage />
+                    ))}
+                  </div>
+                </section>
               </div>
-            </section>
-          </div>
+            </>
+          )}
         </section>
       </main>
     </div>

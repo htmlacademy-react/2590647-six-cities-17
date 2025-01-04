@@ -54,6 +54,8 @@ function LoginPage(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  pattern='^.*(?=.*[a-zA-Z])(?=.*\d).*$'
+                  title='Пароль должен содержать как минимум 1 букву и 1 цифру'
                   ref={inputPasswordRef}
                   required
                 />

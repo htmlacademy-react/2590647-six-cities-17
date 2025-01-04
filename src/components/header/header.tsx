@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { store } from '../../store';
 import { logoutAction } from '../../store/api-actions';
-import { Path, LoginStatus } from '../../const';
 import { useAppSelector } from '../../store/hooks';
+import { Path } from '../../const';
+import { selectIsAuthorized } from '../../store/selectors';
 
 function Header(): JSX.Element {
-  const isAuthorized = useAppSelector((state) => state.authorizationStatus) === LoginStatus.Auth;
+  const isAuthorized = useAppSelector(selectIsAuthorized);
 
   function handleLogoutClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();

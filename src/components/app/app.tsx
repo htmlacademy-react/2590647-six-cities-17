@@ -4,16 +4,18 @@ import { useAppSelector } from '../../store/hooks';
 import MainPage from '../../pages/main-page/main-page';
 // import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
-// import OfferPage from '../../pages/offer-page/offer-page';
+import OfferPage from '../../pages/offer-page/offer-page';
 import ErrorPage from '../../pages/error-page/error-page';
 // import PrivateRoute from '../private-route/private-route';
 import Loading from '../../pages/loading/loading';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 
 function App(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
 
-  if (isLoading) {
+  if (isOffersLoading) {
     return (
       <Loading/>
     );
@@ -21,6 +23,7 @@ function App(): JSX.Element {
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path={Path.Main} element={<MainPage/>} />
         <Route path={Path.Login} element={<LoginPage />} />
@@ -30,7 +33,7 @@ function App(): JSX.Element {
           </PrivateRoute>
         }
         /> */}
-        {/* <Route path={Path.Offer} element={<OfferPage/>} /> */}
+        <Route path={Path.Offer} element={<OfferPage/>} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,10 +1,10 @@
-import { Offer, Point } from '../../types/offer';
+import { Offers, Point } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../../utils';
 import { STAR_WIDTH_FACTOR } from '../../const';
 
 type CardProps = {
-  offer: Offer;
+  offer: Offers;
   onHandleMouseOffer?: (offerId: Point | null) => void;
   activeOfferId?: string;
   isFavoritePage?: boolean;

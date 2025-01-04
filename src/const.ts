@@ -9,39 +9,51 @@ export const NEARBLY_OFFERS_COUNT = 3;
 export const Cities: { [key: string]: City } = {
   PARIS: {
     name: 'Paris',
-    latitude: 48.8566,
-    longitude: 2.3522,
-    zoom: 12
+    location: {
+      latitude: 48.8566,
+      longitude: 2.3522,
+      zoom: 13
+    }
   },
   COLOGNE: {
     name: 'Cologne',
-    latitude: 50.9375,
-    longitude: 6.9603,
-    zoom: 12
+    location: {
+      latitude: 50.9375,
+      longitude: 6.9603,
+      zoom: 13
+    }
   },
   BRUSSELS: {
     name: 'Brussels',
-    latitude: 50.8503,
-    longitude: 4.3517,
-    zoom: 12
+    location: {
+      latitude: 50.8503,
+      longitude: 4.3517,
+      zoom: 13
+    }
   },
   AMSTERDAM: {
     name: 'Amsterdam',
-    latitude: 52.3676,
-    longitude: 4.9041,
-    zoom: 12
+    location: {
+      latitude: 52.3676,
+      longitude: 4.9041,
+      zoom: 13
+    }
   },
   HAMBURG: {
     name: 'Hamburg',
-    latitude: 53.5511,
-    longitude: 9.9937,
-    zoom: 12
+    location: {
+      latitude: 53.5511,
+      longitude: 9.9937,
+      zoom: 13
+    }
   },
   DUSSELDORF: {
     name: 'Dusseldorf',
-    latitude: 51.2277,
-    longitude: 6.7735,
-    zoom: 12
+    location: {
+      latitude: 51.2277,
+      longitude: 6.7735,
+      zoom: 13
+    }
   },
 };
 
@@ -75,5 +87,6 @@ export const ApiRoute = {
   Offers: '/offers',
   Favorite: '/favorite',
   Login: '/login',
-  Logout: '/logout'
+  Logout: '/logout',
+  Comments: '/comments',
 };
