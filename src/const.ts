@@ -35,7 +35,7 @@ export const Cities: { [key: string]: City } = {
     name: 'Hamburg',
     latitude: 53.5511,
     longitude: 9.9937,
-    zoom: 14
+    zoom: 12
   },
   DUSSELDORF: {
     name: 'Dusseldorf',
@@ -70,3 +70,9 @@ export enum Sort {
   PriceHigh = 'Price: high to low',
   Rated = 'Top rated first',
 }
+
+export const ApiRoute = {
+  Offers: '/offers',
+  Favorite: '/favorite',
+  Login: '/login'
+};

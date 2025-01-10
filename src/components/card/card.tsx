@@ -1,11 +1,11 @@
-import { Offer } from '../../types/offer';
+import { Offer, Point } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../../utils';
 import { STAR_WIDTH_FACTOR } from '../../const';
 
 type CardProps = {
   offer: Offer;
-  onHandleMouseOffer?: (offerId: string | null) => void;
+  onHandleMouseOffer?: (offerId: Point | null) => void;
   activeOfferId?: string;
   isFavoritePage?: boolean;
   isOfferPage?: boolean;
@@ -36,7 +36,7 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
       className={`${cardClass} place-card ${isActive ? 'place-card--active' : ''}`}
       onMouseEnter={() => {
         if (onHandleMouseOffer) {
-          onHandleMouseOffer(offer.location.title);
+          onHandleMouseOffer(offer.location);
         }
       }}
       onMouseLeave={() => {
@@ -54,7 +54,7 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
         <Link to={CardURL}>
           <img
             className="place-card__image"
-            src={offer.previewPictureURL}
+            src={offer.previewImage}
             width={isFavoritePage ? 150 : 260}
             height={isFavoritePage ? 110 : 200}
             alt={offer.title}

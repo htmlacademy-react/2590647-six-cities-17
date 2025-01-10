@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Cities } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/actions';
 
 type CitiesProbs = {
   currentCity: string;

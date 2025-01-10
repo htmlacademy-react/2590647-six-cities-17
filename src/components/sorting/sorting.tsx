@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Sort } from '../../const';
-import { changeSorting } from '../../store/action';
+import { changeSorting } from '../../store/actions';
 
 function Sorting(): JSX.Element {
   const sortRef = useRef<HTMLElement>(null);
