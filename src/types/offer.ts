@@ -1,8 +1,10 @@
 export type City = {
   name: string;
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
 };
 
 export type Point = {
@@ -14,22 +16,29 @@ export type Point = {
 export type Points = Point[];
 
 export type Host = {
-  avatarURL: string;
   name: string;
+  avatarUrl: string;
   isPro: boolean;
 };
 
-export type Pictures = {
-  id: number;
-  url: string;
-}[];
+export type Offers = {
+  id: string;
+  title: string;
+  previewImage: string;
+  type: string;
+  city: City;
+  location: Point;
+  price: number;
+  rating: number;
+  isPremium: boolean;
+  isFavorite: boolean;
+};
 
 export type Offer = {
   id: string;
   title: string;
   description: string;
-  previewImage: string;
-  pictures: Pictures;
+  images: string[];
   type: string;
   city: City;
   location: Point;
@@ -39,11 +48,7 @@ export type Offer = {
   maxGuestCount: number;
   isPremium: boolean;
   isFavorite: boolean;
+  goods: string[];
   host: Host;
 };
-
-export type OffersNearby = {
-  id: string;
-  offers: Offer[];
-}
 

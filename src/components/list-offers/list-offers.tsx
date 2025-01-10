@@ -1,8 +1,8 @@
-import { Offer, Point } from '../../types/offer';
+import { Offers, Point } from '../../types/offer';
 import Card from '../../components/card/card';
 
 type ListOffersProps = {
-  offers: Offer[];
+  offers: Offers[];
   onHandleMouseOffer: (offerId: Point | null) => void;
 }
 

@@ -1,16 +1,23 @@
 import { UserComment } from '../../types/comment';
+import { useAppSelector } from '../../store/hooks';
 import { STAR_WIDTH_FACTOR, COMMENTS_LIMIT } from '../../const';
 import { getFormattedDate, formatDateToDateTime, getSortedItemsByDate } from '../../utils';
-
-type CommentListProps = {
-  userComments: UserComment[];
-}
+import { selectOfferComments, selectIsLoadingComments } from '../../store/selectors';
+import Loading from '../../pages/loading/loading';
 
 type CommentProps = {
   userComment: UserComment;
 }
 
 function Comment({userComment}: CommentProps): JSX.Element {
+  const isLoadingComments = useAppSelector(selectIsLoadingComments);
+
+  if (isLoadingComments) {
+    return (
+      <Loading/>
+    );
+  }
+
   return (
 
     <li className="reviews__item">
@@ -45,15 +52,19 @@ function Comment({userComment}: CommentProps): JSX.Element {
   );
 }
 
-function CommentsList({userComments}: CommentListProps): JSX.Element {
-  const sortedComments = getSortedItemsByDate(userComments, COMMENTS_LIMIT);
+function CommentsList(): JSX.Element {
+  const comments = useAppSelector(selectOfferComments);
+  const sortedComments = getSortedItemsByDate(comments, COMMENTS_LIMIT);
 
   return (
-
-    <ul className="reviews__list">
-      {sortedComments.map((userComment) => <Comment userComment={userComment} key={userComment.id} />)}
-    </ul>
-
+    <>
+      <h2 className="reviews__title">
+      Reviews · <span className="reviews__amount">{comments.length}</span>
+      </h2>
+      <ul className="reviews__list">
+        {sortedComments.map((userComment) => <Comment userComment={userComment} key={userComment.id} />)}
+      </ul>
+    </>
   );
 }
 

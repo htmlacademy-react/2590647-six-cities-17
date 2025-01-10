@@ -1,12 +1,12 @@
-import { Offer } from './types/offer';
+import { Offers } from './types/offer';
 import { Sort } from './const';
 
-export const groupOffersByCity = (offers: Offer[]) =>
+export const groupOffersByCity = (offers: Offers[]) =>
   offers.reduce((acc, offer) => {
     acc[offer.city.name] = acc[offer.city.name] || [];
     acc[offer.city.name].push(offer);
     return acc;
-  }, {} as Record<string, Offer[]>);
+  }, {} as Record<string, Offers[]>);
 
 export function getUrlById (id: string) {
   return `/offer/${id}`;
@@ -33,7 +33,7 @@ export function getSortedItemsByDate<T extends { date: string }>(
     .slice(0, limit);
 }
 
-export function sortOffersByType(offers: Offer[], sortTypeName: Sort): Offer[] {
+export function sortOffersByType(offers: Offers[], sortTypeName: Sort): Offers[] {
   const sortedOffers = offers.map((offer) => offer);
   switch (sortTypeName) {
     case Sort.Popular:

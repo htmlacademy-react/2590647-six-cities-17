@@ -1,26 +1,55 @@
 import React, { useState } from 'react';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { postOfferComments, fetchOfferComments } from '../../store/api-actions';
+import { selectIsLoadingPostComment } from '../../store/selectors';
 
-function FormComment(): JSX.Element {
-  const [rating, setRating] = useState<number>(0);
-  const [review, setReview] = useState<string>('');
+type CommentFormProbs = {
+  offerId: string;
+};
+
+function FormComment({offerId}: CommentFormProbs): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isLoadingPostComments = useAppSelector(selectIsLoadingPostComment);
+
+  const [formData, setFormData] = useState({
+    rating: 0,
+    review: '',
+  });
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(event.target.value));
+    setFormData((prevData) => ({
+      ...prevData,
+      rating: Number(event.target.value),
+    }));
   };
 
   const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReview(event.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      review: event.target.value,
+    }));
   };
-
-  const isSubmitDisabled = !rating || review.length < 50;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (rating && review.length >= 50) {
-      setRating(0);
-      setReview('');
+    if (offerId) {
+      dispatch(postOfferComments({
+        id: offerId,
+        comment: formData,
+      }))
+        .then((response) => {
+          if (response.meta.requestStatus === 'fulfilled') {
+            dispatch(fetchOfferComments(offerId));
+            setFormData({
+              rating: 0,
+              review: ''
+            });
+          }
+        });
     }
   };
+
+  const isSubmitDisabled = isLoadingPostComments || !formData.rating || formData.review.length < 50;
 
   return (
 
@@ -37,7 +66,7 @@ function FormComment(): JSX.Element {
               value={star}
               id={`${star}-stars`}
               type="radio"
-              checked={rating === star}
+              checked={formData.rating === star}
               onChange={handleRatingChange}
             />
             <label
@@ -57,7 +86,7 @@ function FormComment(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={review}
+        value={formData.review}
         onChange={handleReviewChange}
       />
       <div className="reviews__button-wrapper">
