@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
+import { memo } from 'react';
 import { Cities } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
-import { changeCity } from '../../store/actions';
+import { changeCity } from '../../store/slices/main-process/main-process';
 
 type CitiesProbs = {
   currentCity: string;
@@ -36,4 +37,6 @@ function CitiesList({currentCity}: CitiesProbs): JSX.Element {
   );
 }
 
-export default CitiesList;
+const CitiesListMemoized = memo(CitiesList, (prevProps, nextProps) => prevProps.currentCity === nextProps.currentCity);
+
+export default CitiesListMemoized;

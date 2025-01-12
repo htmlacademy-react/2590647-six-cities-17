@@ -3,11 +3,12 @@ import { Navigate } from 'react-router-dom';
 import { loginAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { useAppSelector } from '../../store/hooks';
-import { LoginStatus, Path } from '../../const';
+import { Path } from '../../const';
 import Header from '../../components/header/header';
+import { selectIsAuthorized } from '../../store/slices/authorization/selectors';
 
 function LoginPage(): JSX.Element {
-  const isLoggedIn = useAppSelector((state) => state.authorizationStatus) === LoginStatus.Auth;
+  const isLoggedIn = useAppSelector(selectIsAuthorized);
 
   const inputEmailRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
