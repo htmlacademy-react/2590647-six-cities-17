@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { postOfferComments, fetchOfferComments } from '../../store/api-actions';
-import { selectIsLoadingPostComment } from '../../store/selectors';
+import { selectIsLoadingPostComment } from '../../store/slices/offer-data/selectors';
 
 type CommentFormProbs = {
   offerId: string;

@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Sort } from '../../const';
-import { changeSorting } from '../../store/actions';
+import { selectCurrentSorting } from '../../store/slices/main-process/selectors';
+import { getSortingStatus } from '../../store/slices/main-process/main-process';
 
 function Sorting(): JSX.Element {
   const sortRef = useRef<HTMLElement>(null);
-  const currentSort = useAppSelector((state) => state.currentSort);
+  const currentSort = useAppSelector(selectCurrentSorting);
   const dispatch = useAppDispatch();
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -44,7 +45,7 @@ function Sorting(): JSX.Element {
             key={sort}
             className={`places__option ${sort === currentSort ? 'places__option--active' : ''}`}
             tabIndex={0}
-            onClick={() => dispatch(changeSorting(sort))}
+            onClick={() => dispatch(getSortingStatus(sort))}
           >
             {sort}
           </li>
@@ -55,4 +56,6 @@ function Sorting(): JSX.Element {
   );
 }
 
-export default Sorting;
+const SortingMemoized = memo(Sorting);
+
+export default SortingMemoized;

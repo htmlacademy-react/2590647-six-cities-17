@@ -7,13 +7,14 @@ import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import ErrorPage from '../../pages/error-page/error-page';
 // import PrivateRoute from '../private-route/private-route';
+import { selectIsLoadingOffers } from '../../store/slices/offer-data/selectors';
 import Loading from '../../pages/loading/loading';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
 
 function App(): JSX.Element {
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isOffersLoading = useAppSelector(selectIsLoadingOffers);
 
   if (isOffersLoading) {
     return (

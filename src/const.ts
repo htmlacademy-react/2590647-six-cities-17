@@ -65,10 +65,16 @@ export const Path = {
 } as const;
 
 export const enum LoginStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UMKNOWN',
+  Auth = 'Auth',
+  NoAuth = 'NoAuth',
+  Unknown = 'Unknown',
 }
+
+export const NameSpace = {
+  User: 'USER',
+  Data: 'DATA',
+  Main: 'MAIN',
+} as const;
 
 export const URL_MARKER_DEFAULT =
   '../public/img/pin.svg';

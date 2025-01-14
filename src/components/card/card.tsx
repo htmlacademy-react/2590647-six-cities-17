@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Offers, Point } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../../utils';
@@ -94,4 +95,6 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
   );
 }
 
-export default Card;
+const CardMemoized = memo(Card, (prevProps, nextProps) => prevProps.offer === nextProps.offer);
+
+export default CardMemoized;

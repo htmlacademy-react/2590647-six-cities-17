@@ -2,7 +2,7 @@ import { UserComment } from '../../types/comment';
 import { useAppSelector } from '../../store/hooks';
 import { STAR_WIDTH_FACTOR, COMMENTS_LIMIT } from '../../const';
 import { getFormattedDate, formatDateToDateTime, getSortedItemsByDate } from '../../utils';
-import { selectOfferComments, selectIsLoadingComments } from '../../store/selectors';
+import { selectOfferComments, selectIsLoadingComments } from '../../store/slices/offer-data/selectors';
 import Loading from '../../pages/loading/loading';
 
 type CommentProps = {
