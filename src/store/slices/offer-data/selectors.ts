@@ -18,3 +18,9 @@ export const selectOfferComments = (state: State) => state[NameSpace.Data].revie
 export const selectIsLoadingComments = (state: State) => state[NameSpace.Data].isReviewLoading;
 
 export const selectIsLoadingPostComment = (state: State) => state[NameSpace.Data].PostCommentLoading;
+
+export const getFavoriteOfferCards = (state: State) => state[NameSpace.Data].favoriteOfferCards;
+
+export const getFavoriteOfferCardsLoading = (state: State) => state[NameSpace.Data].favoriteOfferCardsLoading;
+
+export const getFavoriteByOfferId = (state: State, offerId: string) => state[NameSpace.Data].favoriteOfferCards.findIndex((offer) => offer.id === offerId) !== -1;

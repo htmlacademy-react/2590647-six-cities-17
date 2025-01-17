@@ -8,6 +8,7 @@ import { AuthData } from '../types/auth';
 import { UserData } from '../types/user';
 import { dropToken, saveToken } from '../services/token';
 import { saveUserName } from './slices/main-process/main-process';
+import { toast } from 'react-toastify';
 
 
 export const fetchOffersAction = createAsyncThunk<Offers[], undefined, {
@@ -103,5 +104,37 @@ export const postOfferComments = createAsyncThunk<UserComment, PostComment, {
   async ({id, comment}, {extra: api}) => {
     const {data} = await api.post<UserComment>(`${ApiRoute.Comments}/${id}`, {comment: comment.review, rating: comment.rating});
     return data;
+  }
+);
+
+export const loadFavoriteOfferCard = createAsyncThunk<Offers[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/loadFavoriteOfferCard',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Offers[]>(`${ApiRoute.Favorite}`);
+    return data;
+  }
+);
+
+export const uploadFavoriteStatus = createAsyncThunk<Offers, {offerId: string, wasFavorite: boolean}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/uploadFavoriteStatus',
+  async ({offerId, wasFavorite}, {getState, extra: api}) => {
+    const nextFavoriteStatus = Number(!wasFavorite);
+    const {data} = await api.post<Offers>(`${ApiRoute.Favorite}/${offerId}/${nextFavoriteStatus}`);
+    const {offers} = getState().DATA;
+    const currentOfferCard = offers.find((offer) => offer.id === data.id)
+
+    if (!currentOfferCard) {
+      toast.warn(`No such offer with given id: ${data.id}`)
+    }
+
+    return {...currentOfferCard, isFavorite: data.isFavorite} as Offers;
   }
 );

@@ -4,11 +4,13 @@ import { logoutAction } from '../../store/api-actions';
 import { useAppSelector } from '../../store/hooks';
 import { Path } from '../../const';
 import { selectIsAuthorized } from '../../store/slices/authorization/selectors';
+import { getFavoriteOfferCards } from '../../store/slices/offer-data/selectors';
 import { selectUserName } from '../../store/slices/main-process/selectors';
 
 function Header(): JSX.Element {
   const isAuthorized = useAppSelector(selectIsAuthorized);
   const userName = useAppSelector(selectUserName);
+  const offerFavoriteCards = useAppSelector(getFavoriteOfferCards)
 
   function handleLogoutClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();
@@ -38,7 +40,7 @@ function Header(): JSX.Element {
                   <Link to={Path.Favorites} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">{ userName }</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{offerFavoriteCards.length}</span>
                   </Link>
                 ) : (
                   <Link to={Path.Login} className="header__nav-link">
