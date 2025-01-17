@@ -11,7 +11,7 @@ import Card from '../../components/card/card';
 import Map from '../../components/map/map';
 import FormComment from '../../components/form-comment/form-comment';
 import CommentsList from '../../components/comments-list/comments-list';
-import  FavoriteButton from '../../components/favorite-button/favorite-button';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 import { STAR_WIDTH_FACTOR, NEARBLY_OFFERS_COUNT } from '../../const';
 
 function OfferPage(): JSX.Element {

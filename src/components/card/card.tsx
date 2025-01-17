@@ -3,7 +3,7 @@ import { Offers, Point } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../../utils';
 import { STAR_WIDTH_FACTOR } from '../../const';
-import  FavoriteButton from '../favorite-button/favorite-button';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type CardProps = {
   offer: Offers;

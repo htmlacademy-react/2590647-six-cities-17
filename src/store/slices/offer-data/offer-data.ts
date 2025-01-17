@@ -31,7 +31,7 @@ const initialState: OfferData = {
   PostCommentLoading: false,
   favoriteOfferCards: [] as Offers[],
   favoriteOfferCardsLoading: false,
-}
+};
 
 export const offersData = createSlice({
   name: NameSpace.Data,
@@ -122,7 +122,7 @@ export const offersData = createSlice({
           state.favoriteOfferCards.push(action.payload);
         } else {
           const favoriteIndex = state.favoriteOfferCards.findIndex((offer) => offer.id === action.payload.id);
-          state.favoriteOfferCards.splice(favoriteIndex, 1)
+          state.favoriteOfferCards.splice(favoriteIndex, 1);
         }
       });
   }

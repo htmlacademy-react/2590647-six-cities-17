@@ -25,7 +25,7 @@ function App(): JSX.Element {
     if (isAuthorized) {
       dispatch(loadFavoriteOfferCard());
     }
-  }, [isAuthorized, dispatch])
+  }, [isAuthorized, dispatch]);
 
   if (isOffersLoading) {
     return (

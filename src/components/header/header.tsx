@@ -10,7 +10,7 @@ import { selectUserName } from '../../store/slices/main-process/selectors';
 function Header(): JSX.Element {
   const isAuthorized = useAppSelector(selectIsAuthorized);
   const userName = useAppSelector(selectUserName);
-  const offerFavoriteCards = useAppSelector(getFavoriteOfferCards)
+  const offerFavoriteCards = useAppSelector(getFavoriteOfferCards);
 
   function handleLogoutClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();

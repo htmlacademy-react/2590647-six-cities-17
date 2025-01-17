@@ -38,7 +38,7 @@ function FavoritesPage(): JSX.Element {
                 ))}
               </ul>
             </section> :
-          <FavoritesEmpty />}
+            <FavoritesEmpty />}
         </div>
       </main>
 

@@ -119,7 +119,7 @@ export const loadFavoriteOfferCard = createAsyncThunk<Offers[], undefined, {
   }
 );
 
-export const uploadFavoriteStatus = createAsyncThunk<Offers, {offerId: string, wasFavorite: boolean}, {
+export const uploadFavoriteStatus = createAsyncThunk<Offers, {offerId: string; wasFavorite: boolean}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -127,12 +127,12 @@ export const uploadFavoriteStatus = createAsyncThunk<Offers, {offerId: string, w
   'data/uploadFavoriteStatus',
   async ({offerId, wasFavorite}, {getState, extra: api}) => {
     const nextFavoriteStatus = Number(!wasFavorite);
-    const {data} = await api.post<Offers>(`${ApiRoute.Favorite}/${offerId}/${nextFavoriteStatus}`);
+    const {data} = await api.post<Offers>(`${ApiRoute.Favorite}2/${offerId}/${nextFavoriteStatus}`);
     const {offers} = getState().DATA;
-    const currentOfferCard = offers.find((offer) => offer.id === data.id)
+    const currentOfferCard = offers.find((offer) => offer.id === data.id);
 
     if (!currentOfferCard) {
-      toast.warn(`No such offer with given id: ${data.id}`)
+      toast.warn(`No such offer with given id: ${data.id}`);
     }
 
     return {...currentOfferCard, isFavorite: data.isFavorite} as Offers;
