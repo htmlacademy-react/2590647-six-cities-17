@@ -3,6 +3,7 @@ import { Offers, Point } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../../utils';
 import { STAR_WIDTH_FACTOR } from '../../const';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type CardProps = {
   offer: Offers;
@@ -68,17 +69,7 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${
-              offer.isFavorite ? 'place-card__bookmark-button--active' : ''
-            }`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoriteButton className="place-card" offerId={offer.id} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

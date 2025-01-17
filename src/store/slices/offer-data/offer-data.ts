@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchOffersAction, getOfferByID, fetchNearbyOffers, fetchOfferComments, postOfferComments } from '../../api-actions';
+import { fetchOffersAction, getOfferByID, fetchNearbyOffers, fetchOfferComments, postOfferComments, loadFavoriteOfferCard, uploadFavoriteStatus } from '../../api-actions';
 import { Offers, Offer } from '../../../types/offer';
 import { UserComment } from '../../../types/comment';
 import { NameSpace } from '../../../const';
@@ -15,6 +15,8 @@ type OfferData = {
   reviews: UserComment[];
   isReviewLoading: boolean;
   PostCommentLoading: boolean;
+  favoriteOfferCards: Offers[];
+  favoriteOfferCardsLoading: boolean;
 }
 
 const initialState: OfferData = {
@@ -27,6 +29,8 @@ const initialState: OfferData = {
   isReviewLoading: false,
   reviews: [] as UserComment[],
   PostCommentLoading: false,
+  favoriteOfferCards: [] as Offers[],
+  favoriteOfferCardsLoading: false,
 };
 
 export const offersData = createSlice({
@@ -98,6 +102,28 @@ export const offersData = createSlice({
       .addCase(postOfferComments.fulfilled, (state, action) => {
         state.reviews.push(action.payload);
         state.PostCommentLoading = false;
+      })
+
+      .addCase(loadFavoriteOfferCard.pending, (state) => {
+        state.favoriteOfferCardsLoading = true;
+      })
+
+      .addCase(loadFavoriteOfferCard.rejected, (state) => {
+        state.favoriteOfferCardsLoading = false;
+      })
+
+      .addCase(loadFavoriteOfferCard.fulfilled, (state, action) => {
+        state.favoriteOfferCards = action.payload;
+        state.favoriteOfferCardsLoading = false;
+      })
+
+      .addCase(uploadFavoriteStatus.fulfilled, (state, action) => {
+        if (action.payload.isFavorite) {
+          state.favoriteOfferCards.push(action.payload);
+        } else {
+          const favoriteIndex = state.favoriteOfferCards.findIndex((offer) => offer.id === action.payload.id);
+          state.favoriteOfferCards.splice(favoriteIndex, 1);
+        }
       });
   }
 });

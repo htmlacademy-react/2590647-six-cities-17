@@ -11,6 +11,7 @@ import Card from '../../components/card/card';
 import Map from '../../components/map/map';
 import FormComment from '../../components/form-comment/form-comment';
 import CommentsList from '../../components/comments-list/comments-list';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 import { STAR_WIDTH_FACTOR, NEARBLY_OFFERS_COUNT } from '../../const';
 
 function OfferPage(): JSX.Element {
@@ -76,12 +77,7 @@ function OfferPage(): JSX.Element {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{offerById.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoriteButton className="offer" offerId={offerById.id} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
