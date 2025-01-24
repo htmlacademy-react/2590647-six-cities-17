@@ -98,7 +98,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
     favoriteOfferCardsLoading: false,
   },
   USER: {
-  authorizationStatus: LoginStatus.Unknown,
+    authorizationStatus: LoginStatus.Unknown,
   },
   ...initialState ?? {},
 });

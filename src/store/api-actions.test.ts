@@ -55,20 +55,20 @@ describe('Async actions', () => {
       const fakeUser: AuthData = { email: 'test@test.ru', password: '123456a' };
       const fakeServerReplay = makeFakeUserData();
       mockAxiosAdapter.onPost(ApiRoute.Login).reply(200, fakeServerReplay);
-    
+
       await store.dispatch(loginAction(fakeUser));
-    
+
       const emittedActions = store.getActions();
-    
+
       const saveUserNameAction = emittedActions.find(
         (action): action is PayloadAction<string | null> =>
           action.type === 'MAIN/saveUserName',
       );
-    
+
       expect(saveUserNameAction).toBeDefined();
       expect(saveUserNameAction!.payload).toEqual(fakeUser.email);
     });
-    
+
     it('should call "saveToken" once with the received token', async () => {
       const fakeUser: AuthData = { email: 'test@test.ru', password: '123456' };
       const fakeServerReplay = makeFakeUserData();
@@ -213,29 +213,28 @@ describe('Async actions', () => {
     it('should dispatch "fetchNearbyOffers.pending", "fetchNearbyOffers.fulfilled", when server response 200', async() => {
       const mockNearBy = Array<Offers>(12).fill(makeFakeOffer());
       const offerId = 'some-id';
-      
+
       mockAxiosAdapter.onGet(`${ApiRoute.Offers}/${offerId}/nearby`).reply(200, mockNearBy);
-    
+
       await store.dispatch(fetchNearbyOffers(offerId));
-    
+
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
-      
+
       const fetchNearByActionFulfilled = emittedActions.at(1) as ReturnType<typeof fetchNearbyOffers.fulfilled>;
-    
+
       expect(extractedActionsTypes).toEqual([
         fetchNearbyOffers.pending.type,
         fetchNearbyOffers.fulfilled.type,
       ]);
-    
+
       expect(fetchNearByActionFulfilled.payload)
         .toEqual(mockNearBy);
     });
-    
 
     it('should dispatch "fetchNearbyOffers.pending", "fetchNearbyOffers.rejected" when server response 400', async () => {
       const offerId = 'some-offer-id';
-      mockAxiosAdapter.onGet(ApiRoute.Offers + offerId + '/nearby').reply(400, []);
+      mockAxiosAdapter.onGet(`${ApiRoute.Offers}/${offerId}/nearby`).reply(400, []);
 
       await store.dispatch(fetchNearbyOffers(offerId));
       const actions = extractActionsTypes(store.getActions());

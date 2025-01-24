@@ -311,7 +311,7 @@ describe('OfferData Slice', () => {
       favoriteOfferCardsLoading: false,
     };
 
-    const result = offersData.reducer( undefined, getOfferByID.rejected);
+    const result = offersData.reducer(undefined, getOfferByID.rejected);
 
     expect(result).toEqual(expectedState);
   });
