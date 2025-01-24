@@ -74,8 +74,8 @@ export const makeFakeOfferFull = (): Offer => ({
   images: makeFakeImagesData(),
   goods: ['Heating', 'Towels', 'Washing machine', 'Laptop friendly workspace'],
   host: makeFakeUserData(),
-  bedroomCount: 4,
-  maxGuestCount: 5,
+  bedrooms: 4,
+  maxAdults: 5,
 });
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
