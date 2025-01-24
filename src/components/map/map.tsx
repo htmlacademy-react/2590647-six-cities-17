@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Icon, Marker, layerGroup, CircleMarker } from 'leaflet';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { City, Points, Point } from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
@@ -48,14 +48,6 @@ function Map(props: MapProps): JSX.Element {
       });
 
       if (selectedPoint && map.getContainer() && map.getContainer().closest('.offer__map')) {
-        const circleMarker = new CircleMarker([selectedPoint.latitude, selectedPoint.longitude], {
-          radius: 350,
-          color: '#3388ff',
-          fillColor: '#3388ff',
-          fillOpacity: 0.2,
-        }).addTo(map);
-        markerLayer.addLayer(circleMarker);
-
         const currentOfferMarker = new Marker({
           lat: selectedPoint.latitude,
           lng: selectedPoint.longitude,
