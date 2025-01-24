@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { Path } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import MainPage from '../../pages/main-page/main-page';
@@ -10,8 +11,6 @@ import PrivateRoute from '../private-route/private-route';
 import { selectIsLoadingOffers } from '../../store/slices/offer-data/selectors';
 import { selectIsAuthorized } from '../../store/slices/authorization/selectors';
 import Loading from '../../pages/loading/loading';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { loadFavoriteOfferCard } from '../../store/api-actions';
 
@@ -34,8 +33,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
-      <ToastContainer />
+    <HelmetProvider>
       <Routes>
         <Route path={Path.Main} element={<MainPage/>} />
         <Route path={Path.Login} element={<LoginPage />} />
@@ -48,7 +46,7 @@ function App(): JSX.Element {
         <Route path={Path.Offer} element={<OfferPage/>} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
-    </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

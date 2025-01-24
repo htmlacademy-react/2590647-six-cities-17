@@ -11,7 +11,7 @@ type MainState = {
 const initialState: MainState = {
   currentCity: Cities.PARIS,
   currentSort: Sort.Popular,
-  userName: null,
+  userName: localStorage.getItem('userName'),
 };
 
 export const mainProcess = createSlice({
@@ -26,7 +26,12 @@ export const mainProcess = createSlice({
     },
     saveUserName: (state, action: PayloadAction<string | null>) => {
       state.userName = action.payload;
-    }
+      if (action.payload) {
+        localStorage.setItem('userName', action.payload);
+      } else {
+        localStorage.removeItem('userName');
+      }
+    },
   }
 });
 

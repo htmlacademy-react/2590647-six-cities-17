@@ -48,14 +48,6 @@ function Map(props: MapProps): JSX.Element {
       });
 
       if (selectedPoint && map.getContainer() && map.getContainer().closest('.offer__map')) {
-        const circleMarker = new CircleMarker([selectedPoint.latitude, selectedPoint.longitude], {
-          radius: 350,
-          color: '#3388ff',
-          fillColor: '#3388ff',
-          fillOpacity: 0.2,
-        }).addTo(map);
-        markerLayer.addLayer(circleMarker);
-
         const currentOfferMarker = new Marker({
           lat: selectedPoint.latitude,
           lng: selectedPoint.longitude,

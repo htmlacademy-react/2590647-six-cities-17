@@ -23,27 +23,29 @@ export const fetchOffersAction = createAsyncThunk<Offers[], undefined, {
   },
 );
 
-export const checkLoginStatus = createAsyncThunk<void, undefined, {
+export const checkLoginStatus = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkLoginStatus',
   async (_arg, {extra: api}) => {
-    await api.get(ApiRoute.Login);
+    const { data } = await api.get<UserData>(ApiRoute.Login);
+    return data;
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(ApiRoute.Login, {email, password});
-    saveToken(token);
+    const { data } = await api.post<UserData>(ApiRoute.Login, { email, password });
+    saveToken(data.token);
     dispatch(saveUserName(email));
+    return data;
   },
 );
 
@@ -127,7 +129,7 @@ export const uploadFavoriteStatus = createAsyncThunk<Offers, {offerId: string; w
   'data/uploadFavoriteStatus',
   async ({offerId, wasFavorite}, {getState, extra: api}) => {
     const nextFavoriteStatus = Number(!wasFavorite);
-    const {data} = await api.post<Offers>(`${ApiRoute.Favorite}2/${offerId}/${nextFavoriteStatus}`);
+    const {data} = await api.post<Offers>(`${ApiRoute.Favorite}/${offerId}/${nextFavoriteStatus}`);
     const {offers} = getState().DATA;
     const currentOfferCard = offers.find((offer) => offer.id === data.id);
 

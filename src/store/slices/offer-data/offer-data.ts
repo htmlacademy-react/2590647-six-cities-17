@@ -5,7 +5,7 @@ import { UserComment } from '../../../types/comment';
 import { NameSpace } from '../../../const';
 
 
-type OfferData = {
+export type OfferData = {
   offers: Offers[];
   isOffersLoading: boolean;
   offer: Offer | null;
@@ -19,7 +19,7 @@ type OfferData = {
   favoriteOfferCardsLoading: boolean;
 }
 
-const initialState: OfferData = {
+export const initialState: OfferData = {
   offers: [] as Offers[],
   isOffersLoading: false,
   offer: null,
