@@ -6,7 +6,6 @@ type ListOffersProps = {
   onHandleMouseOffer: (offerId: Point | null) => void;
 }
 
-
 function ListOffers({ offers, onHandleMouseOffer }: ListOffersProps): JSX.Element {
 
   return (

@@ -11,10 +11,14 @@ type FavoriteButtonProbs = {
 }
 
 const OFFER_CLASS_NAME = 'offer';
+const OFFER_IMG_WIDTH = 31;
+const OFFER_IMG_HEIGHT = 33;
+const DEFAULT_IMG_WIDTH = 18;
+const DEFAULT_IMG_HEIGHT = 19;
 
 function FavoriteButton({ className, offerId }: FavoriteButtonProbs): JSX.Element {
-  const imgWidth = className === OFFER_CLASS_NAME ? 31 : 18;
-  const imgHeight = className === OFFER_CLASS_NAME ? 33 : 19;
+  const imgWidth = className === OFFER_CLASS_NAME ? OFFER_IMG_WIDTH : DEFAULT_IMG_WIDTH;
+  const imgHeight = className === OFFER_CLASS_NAME ? OFFER_IMG_HEIGHT : DEFAULT_IMG_HEIGHT;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

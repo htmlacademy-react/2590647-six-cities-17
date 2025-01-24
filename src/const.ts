@@ -76,11 +76,10 @@ export const NameSpace = {
   Main: 'MAIN',
 } as const;
 
-export const URL_MARKER_DEFAULT =
-  '../public/img/pin.svg';
-
-export const URL_MARKER_CURRENT =
-  '../public/img/pin-active.svg';
+export const Markers = {
+  Default: '../public/img/pin.svg',
+  Current: '../public/img/pin-active.svg',
+} as const;
 
 export enum Sort {
   Popular = 'Popular',
@@ -89,10 +88,10 @@ export enum Sort {
   Rated = 'Top rated first',
 }
 
-export const ApiRoute = {
-  Offers: '/offers',
-  Favorite: '/favorite',
-  Login: '/login',
-  Logout: '/logout',
-  Comments: '/comments',
-};
+export enum ApiRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments',
+}
