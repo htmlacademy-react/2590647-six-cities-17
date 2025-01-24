@@ -1,17 +1,30 @@
 import { FormEvent, useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate} from 'react-router-dom';
 import { loginAction } from '../../store/api-actions';
 import { store } from '../../store';
-import { useAppSelector } from '../../store/hooks';
-import { Path } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { Path, Cities } from '../../const';
 import Header from '../../components/header/header';
 import { selectIsAuthorized } from '../../store/slices/authorization/selectors';
+import { changeCity } from '../../store/slices/main-process/main-process';
 
 function LoginPage(): JSX.Element {
   const isLoggedIn = useAppSelector(selectIsAuthorized);
-
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const inputEmailRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  const cityKeys = Object.keys(Cities);
+
+  const randomCityKey = cityKeys[Math.floor(Math.random() * cityKeys.length)];
+
+  const randomCity = Cities[randomCityKey];
+
+  function handleCityClick() {
+    dispatch(changeCity(randomCity));
+    navigate(Path.Main);
+  }
 
   function submitHandler (evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -68,9 +81,9 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <button className="locations__item-link button" onClick={handleCityClick}>
+                <span>{randomCity.name}</span>
+              </button>
             </div>
           </section>
         </div>

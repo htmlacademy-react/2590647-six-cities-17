@@ -89,10 +89,10 @@ function OfferPage(): JSX.Element {
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{offerById.type}</li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {offerById.bedroomCount} Bedrooms
+                  {offerById.bedrooms} {offerById.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {offerById.maxGuestCount} adults
+                  Max {offerById.maxAdults} {offerById.maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
               <div className="offer__price">

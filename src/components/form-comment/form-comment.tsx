@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { postOfferComments, fetchOfferComments } from '../../store/api-actions';
 import { selectIsLoadingPostComment } from '../../store/slices/offer-data/selectors';
@@ -7,7 +9,7 @@ type CommentFormProbs = {
   offerId: string;
 };
 
-function FormComment({offerId}: CommentFormProbs): JSX.Element {
+function FormComment({ offerId }: CommentFormProbs): JSX.Element {
   const dispatch = useAppDispatch();
   const isLoadingPostComments = useAppSelector(selectIsLoadingPostComment);
 
@@ -30,8 +32,16 @@ function FormComment({offerId}: CommentFormProbs): JSX.Element {
     }));
   };
 
+  const wordCount = formData.review.length;
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (wordCount > 300) {
+      toast.error('Review must not exceed 300 words');
+      return;
+    }
+
     if (offerId) {
       dispatch(postOfferComments({
         id: offerId,
@@ -42,8 +52,11 @@ function FormComment({offerId}: CommentFormProbs): JSX.Element {
             dispatch(fetchOfferComments(offerId));
             setFormData({
               rating: 0,
-              review: ''
+              review: '',
             });
+            toast.success('Review published successfully!');
+          } else {
+            toast.error('Failed to submit review. Please try again.');
           }
         });
     }
@@ -52,7 +65,6 @@ function FormComment({offerId}: CommentFormProbs): JSX.Element {
   const isSubmitDisabled = isLoadingPostComments || !formData.rating || formData.review.length < 50;
 
   return (
-
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -95,6 +107,8 @@ function FormComment({offerId}: CommentFormProbs): JSX.Element {
           <span className="reviews__star">rating</span> and describe
           your stay with at least{' '}
           <b className="reviews__text-amount">50 characters</b>.
+          <br />
+          Maximum <b>300 words</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
@@ -105,7 +119,6 @@ function FormComment({offerId}: CommentFormProbs): JSX.Element {
         </button>
       </div>
     </form>
-
   );
 }
 
