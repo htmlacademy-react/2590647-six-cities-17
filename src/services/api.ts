@@ -36,13 +36,41 @@ export function createAPI (): AxiosInstance {
     },
   );
 
+  const shownErrors = new Set<string>();
+  const ERROR_CLEAR_TIMEOUT = 5000;
+
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<ErrorMessageType>) => {
-      if (error.response && ShouldDisplayError(error.response)) {
-        const errorMessage = (error.response.data);
-        toast.warn(errorMessage.message);
+      if (error.response) {
+        const { status } = error.response;
+        let errorMessage = '';
+
+        if (status === 404) {
+          errorMessage = 'The requested resource was not found. Check the path and repeat the attempt.';
+        } else if (status === 500) {
+          errorMessage = 'An error occurred on the server. Please try again later.';
+        } else {
+          errorMessage = error.response.data.message || 'The server is temporarily unavailable. Try it later.';
+        }
+
+        if (ShouldDisplayError(error.response) && !shownErrors.has(errorMessage)) {
+          toast.warn(errorMessage);
+          shownErrors.add(errorMessage);
+
+          setTimeout(() => shownErrors.delete(errorMessage), ERROR_CLEAR_TIMEOUT);
+        }
+      } else if (!error.response) {
+        const fallbackMessage = 'The server is temporarily unavailable. Try it later.';
+
+        if (!shownErrors.has(fallbackMessage)) {
+          toast.error(fallbackMessage);
+          shownErrors.add(fallbackMessage);
+
+          setTimeout(() => shownErrors.delete(fallbackMessage), ERROR_CLEAR_TIMEOUT);
+        }
       }
+
       throw error;
     }
   );

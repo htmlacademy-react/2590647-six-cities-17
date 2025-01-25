@@ -73,6 +73,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "LoginPage" when user navigate to "/login"', () => {
+    const expectedText = 'Sign in';
     const withHistoryComponent = withHistory(<App/>, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
       USER: {
@@ -83,9 +84,11 @@ describe('Application Routing', () => {
 
     render(withStoreComponent);
 
+    const signInButton = screen.getByRole('button', { name: expectedText });
+
     expect(screen.getByText('E-mail')).toBeInTheDocument();
     expect(screen.getByText('Password')).toBeInTheDocument();
-    expect(screen.getByRole('button')).toHaveTextContent('Sign in');
+    expect(signInButton).toHaveTextContent(expectedText);
   });
 
   it('should render "Page404" when user navigate to non-existent route', () => {
@@ -117,6 +120,8 @@ describe('Application Routing', () => {
 
     render(withHistoryComponent);
 
-    expect(screen.getByRole('button')).toHaveTextContent(expectedText);
+    const signInButton = screen.getByRole('button', { name: expectedText });
+
+    expect(signInButton).toHaveTextContent(expectedText);
   });
 });

@@ -44,8 +44,8 @@ export type Offer = {
   location: Point;
   price: number;
   rating: number;
-  bedroomCount: number;
-  maxGuestCount: number;
+  bedrooms: number;
+  maxAdults: number;
   isPremium: boolean;
   isFavorite: boolean;
   goods: string[];
