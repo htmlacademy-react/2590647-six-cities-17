@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 import {MemoryHistory, createMemoryHistory} from 'history';
 import {Path, LoginStatus, Cities } from '../../const';

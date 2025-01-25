@@ -6,8 +6,8 @@ import './error-page.css';
 function ErrorPage(): JSX.Element {
   return (
     <>
-      <Header/>
-      <section className='not-found'>
+      <Header />
+      <section className='not-found' data-testid="error-page">
         <div className="container">
           <div className="not-found__wrapper">
             <div className="not-found__number">
