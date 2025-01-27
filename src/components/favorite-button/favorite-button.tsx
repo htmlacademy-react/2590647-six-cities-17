@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { selectIsAuthorized } from '../../store/slices/authorization/selectors';
 import { getFavoriteByOfferId } from '../../store/slices/offer-data/selectors';
@@ -27,7 +28,10 @@ function FavoriteButton({ className, offerId }: FavoriteButtonProbs): JSX.Elemen
 
   return (
     <button
-      className={`${className}__bookmark-button button ${isFavorite && isAuthorized ? `${className}__bookmark-button--active` : ''}`}
+      className={ cn(`${className}__bookmark-button`,
+        'button',
+        { [`${className}__bookmark-button--active`]: isFavorite && isAuthorized }
+      )}
       type="button"
       onClick={() => {
         if (isAuthorized) {

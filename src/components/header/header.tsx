@@ -43,8 +43,8 @@ function Header(): JSX.Element {
                     <span className="header__favorite-count">{offerFavoriteCards.length}</span>
                   </Link>
                 ) : (
-                  <Link to={Path.Login} className="header__nav-link">
-                    <span className="header__signout">Sign in</span>
+                  <Link to={Path.Login} className="header__nav-link header__nav-link--profile">
+                    <span className="header__login">Sign in</span>
                   </Link>
                 )}
               </li>

@@ -6,6 +6,8 @@ export const COMMENTS_LIMIT = 10;
 
 export const NEARBLY_OFFERS_COUNT = 3;
 
+export const GALERY_IMAGES_COUNT = 6;
+
 export const Cities: { [key: string]: City } = {
   PARIS: {
     name: 'Paris',

@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getOfferByID, fetchNearbyOffers, fetchOfferComments } from '../../store/api-actions';
 import { selectOfferById, selectIsLoadingOffer, selectOffersNearById, selectIsLoadingNearbyOffer } from '../../store/slices/offer-data/selectors';
@@ -12,7 +13,7 @@ import Map from '../../components/map/map';
 import FormComment from '../../components/form-comment/form-comment';
 import CommentsList from '../../components/comments-list/comments-list';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
-import { STAR_WIDTH_FACTOR, NEARBLY_OFFERS_COUNT } from '../../const';
+import { STAR_WIDTH_FACTOR, NEARBLY_OFFERS_COUNT, GALERY_IMAGES_COUNT } from '../../const';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams();
@@ -57,7 +58,7 @@ function OfferPage(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offerById.images.map((image) => (
+              {offerById.images.slice(0, GALERY_IMAGES_COUNT).map((image) => (
                 <div className="offer__image-wrapper" key={image}>
                   <img
                     className="offer__image"
@@ -112,19 +113,11 @@ function OfferPage(): JSX.Element {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img
-                      className="offer__avatar user__avatar"
-                      src={offerById.host.avatarUrl}
-                      width={74}
-                      height={74}
-                      alt="Host avatar"
-                    />
+                  <div className={cn('offer__avatar-wrapper', 'user__avatar-wrapper', {'offer__avatar-wrapper--pro': offerById.host.isPro})}>
+                    <img className='offer__avatar user__avatar' src={offerById.host.avatarUrl} width='74' height='74' alt='Host avatar' />
                   </div>
                   <span className="offer__user-name">{offerById.host.name}</span>
-                  <span className="offer__user-status">
-                    {offerById.host.isPro ? 'Pro' : null}
-                  </span>
+                  {offerById.host.isPro && <span className='offer__user-status'>Pro</span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">

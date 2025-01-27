@@ -11,7 +11,7 @@ function FavoritesPage(): JSX.Element {
   const groupedOffers = groupOffersByCity(favoriteOfferCards);
 
   return (
-    <div className="page">
+    <div className={`page ${favoriteOfferCards.length === 0 ? 'page--favorites-empty' : ''}`}>
       <Header />
 
       <main className={`page__main page__main--favorites ${favoriteOfferCards.length === 0 ? 'page__main--favorites-empty' : ''}`}>

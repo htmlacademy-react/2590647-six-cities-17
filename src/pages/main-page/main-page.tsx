@@ -32,11 +32,13 @@ function MainPage(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList currentCity={City.name}/>
         <div className="cities">
-          <div className={`cities__places-container container  ${cityOfferCards.length > 0 ? '' : 'cities__places-container-empty'}`}>
+          <div className={`cities__places-container container  ${cityOfferCards.length > 0 ? '' : 'cities__places-container--empty'}`}>
             {cityOfferCards.length > 0 ?
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{cityOfferCards.length} places to stay in {City.name}</b>
+                <b className="places__found">
+                  {cityOfferCards.length} {cityOfferCards.length === 1 ? 'place' : 'places'} to stay in {City.name}
+                </b>
                 <Sorting/>
                 <ListOffers offers={sortedOfferCards} onHandleMouseOffer={handleMouseOffer}></ListOffers>
               </section> :
