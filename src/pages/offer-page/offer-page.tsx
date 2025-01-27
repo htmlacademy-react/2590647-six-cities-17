@@ -113,9 +113,9 @@ function OfferPage(): JSX.Element {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                <div className={cn('offer__avatar-wrapper', 'user__avatar-wrapper', {'offer__avatar-wrapper--pro': offerById.host.isPro})}>
-                  <img className='offer__avatar user__avatar' src={offerById.host.avatarUrl} width='74' height='74' alt='Host avatar' />
-                </div>
+                  <div className={cn('offer__avatar-wrapper', 'user__avatar-wrapper', {'offer__avatar-wrapper--pro': offerById.host.isPro})}>
+                    <img className='offer__avatar user__avatar' src={offerById.host.avatarUrl} width='74' height='74' alt='Host avatar' />
+                  </div>
                   <span className="offer__user-name">{offerById.host.name}</span>
                   {offerById.host.isPro && <span className='offer__user-status'>Pro</span>}
                 </div>
