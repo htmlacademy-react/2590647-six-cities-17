@@ -14,7 +14,7 @@ type CardProps = {
 };
 
 function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOfferPage }: CardProps): JSX.Element {
-  const CardURL = getUrlById(offer.id);
+  const cardUrl = getUrlById(offer.id);
   const isActive = offer.id === activeOfferId;
 
   let cardClass = '';
@@ -53,7 +53,7 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
         </div>
       )}
       <div className={imageWrapperClass}>
-        <Link to={CardURL}>
+        <Link to={cardUrl}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -78,7 +78,7 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={CardURL}>{offer.title}</Link>
+          <Link to={cardUrl}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

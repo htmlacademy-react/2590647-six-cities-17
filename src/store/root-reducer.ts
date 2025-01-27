@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../const';
-import { authorizationSlice } from './slices/authorization/authorization-slice';
+import { authorizationSlice } from './slices/authorization/authorization';
 import { offersData } from './slices/offer-data/offer-data';
 import { mainProcess } from './slices/main-process/main-process';
 
