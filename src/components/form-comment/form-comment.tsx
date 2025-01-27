@@ -9,6 +9,9 @@ type CommentFormProbs = {
   offerId: string;
 };
 
+const MIN_LENGTH_COMMENT = 50;
+const MAX_LENGTH_COMMENT = 300;
+
 function FormComment({ offerId }: CommentFormProbs): JSX.Element {
   const dispatch = useAppDispatch();
   const isLoadingPostComments = useAppSelector(selectIsLoadingPostComment);
@@ -37,8 +40,8 @@ function FormComment({ offerId }: CommentFormProbs): JSX.Element {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (wordCount > 300) {
-      toast.error('Review must not exceed 300 words');
+    if (wordCount > MAX_LENGTH_COMMENT) {
+      toast.error('Review must not exceed 250 words');
       return;
     }
 
@@ -62,7 +65,7 @@ function FormComment({ offerId }: CommentFormProbs): JSX.Element {
     }
   };
 
-  const isSubmitDisabled = isLoadingPostComments || !formData.rating || formData.review.length < 50;
+  const isSubmitDisabled = isLoadingPostComments || !formData.rating || formData.review.length < MIN_LENGTH_COMMENT;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
@@ -80,11 +83,12 @@ function FormComment({ offerId }: CommentFormProbs): JSX.Element {
               type="radio"
               checked={formData.rating === star}
               onChange={handleRatingChange}
+              disabled={isLoadingPostComments}
             />
             <label
               htmlFor={`${star}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={['terribly', 'badly', 'not bad', 'good', 'perfect'][5 - star]}
+              title={['perfect', 'good', 'not bad', 'badly', 'terribly'][5 - star]}
             >
               <svg className="form__star-image" width={37} height={33}>
                 <use xlinkHref="#icon-star" />
@@ -100,6 +104,7 @@ function FormComment({ offerId }: CommentFormProbs): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
         onChange={handleReviewChange}
+        disabled={isLoadingPostComments}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

@@ -13,7 +13,7 @@ export function getUrlById (id: string) {
 }
 
 export function getFormattedDate(date: string): string {
-  const formatter = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+  const formatter = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
   const formattedDate = formatter.format(new Date(date));
 
   return formattedDate;
