@@ -12,27 +12,29 @@ function CitiesList({currentCity}: CitiesProbs): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-
-    <div className="tabs">
-      <section className="locations container">
-        <ul className="locations__list tabs__list">
-          {Object.values(Cities).map((city) => (
-            <li key={city.name} className="locations__item">
-              <Link
-                className={`locations__item-link tabs__item ${currentCity === city.name ? 'tabs__item--active' : ''}`}
-                to={''}
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  dispatch(changeCity(city));
-                }}
-              >
-                <span>{city.name}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
+    <>
+      <h1 className="visually-hidden">Cities</h1>
+      <div className="tabs">
+        <section className="locations container">
+          <ul className="locations__list tabs__list">
+            {Object.values(Cities).map((city) => (
+              <li key={city.name} className="locations__item" data-testid='location-item-container'>
+                <Link
+                  className={`locations__item-link tabs__item ${currentCity === city.name ? 'tabs__item--active' : ''}`}
+                  to={''}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(changeCity(city));
+                  }}
+                >
+                  <span>{city.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </>
 
   );
 }

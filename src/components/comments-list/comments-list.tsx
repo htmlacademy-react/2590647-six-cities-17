@@ -61,7 +61,7 @@ function CommentsList(): JSX.Element {
       <h2 className="reviews__title">
       Reviews · <span className="reviews__amount">{comments.length}</span>
       </h2>
-      <ul className="reviews__list">
+      <ul className="reviews__list" data-testid='offer-comment-container'>
         {sortedComments.map((userComment) => <Comment userComment={userComment} key={userComment.id} />)}
       </ul>
     </>

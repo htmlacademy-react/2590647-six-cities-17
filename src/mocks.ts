@@ -7,6 +7,13 @@ import {State} from './types/state';
 import {UserComment} from './types/comment';
 import {createAPI} from './services/api';
 import { LoginStatus, Sort, Cities } from './const';
+import { Point } from './types/offer';
+
+export const makeFakePoint = (): Point => ({
+  latitude: parseFloat((Math.random() * (90 - (-90)) + (-90)).toFixed(6)),
+  longitude: parseFloat((Math.random() * (180 - (-180)) + (-180)).toFixed(6)),
+  zoom: 12,
+});
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 

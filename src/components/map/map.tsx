@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map/use-map';
 import { City, Points, Point } from '../../types/offer';
-import { Markers } from '../../const';
+import { mapMarker } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -12,13 +12,13 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: Markers.Default,
+  iconUrl: mapMarker.Default,
   iconSize: [27, 39],
   iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: Markers.Current,
+  iconUrl: mapMarker.Current,
   iconSize: [27, 39],
   iconAnchor: [20, 40],
 });

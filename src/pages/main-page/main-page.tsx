@@ -15,7 +15,7 @@ function MainPage(): JSX.Element {
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
 
-  const City = useAppSelector(selectCurrentCity);
+  const city = useAppSelector(selectCurrentCity);
   const cityOfferCards = useAppSelector(selectCityOfferCards);
   const currentSort = useAppSelector(selectCurrentSorting);
   const sortedOfferCards = sortOffersByType(cityOfferCards, currentSort);
@@ -29,24 +29,23 @@ function MainPage(): JSX.Element {
     <div className="page page--gray page--main">
       <Header/>
       <main className={`page__main page__main--index ${cityOfferCards.length > 0 ? '' : 'page__main--index-empty'}`}>
-        <h1 className="visually-hidden">Cities</h1>
-        <CitiesList currentCity={City.name}/>
+        <CitiesList currentCity={city.name}/>
         <div className="cities">
           <div className={`cities__places-container container  ${cityOfferCards.length > 0 ? '' : 'cities__places-container--empty'}`}>
             {cityOfferCards.length > 0 ?
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {cityOfferCards.length} {cityOfferCards.length === 1 ? 'place' : 'places'} to stay in {City.name}
+                  {cityOfferCards.length} {cityOfferCards.length === 1 ? 'place' : 'places'} to stay in {city.name}
                 </b>
                 <Sorting/>
                 <ListOffers offers={sortedOfferCards} onHandleMouseOffer={handleMouseOffer}></ListOffers>
               </section> :
-              <OfferListEmpty currentCity={City.name}/>}
+              <OfferListEmpty currentCity={city.name}/>}
             <div className="cities__right-section">
               {cityOfferCards.length > 0 ?
                 <section className="cities__map map">
-                  <Map city={City} points={cityOfferCards.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
+                  <Map city={city} points={cityOfferCards.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
                 </section>
                 : null}
             </div>

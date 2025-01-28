@@ -28,6 +28,7 @@ function FavoriteButton({ className, offerId }: FavoriteButtonProbs): JSX.Elemen
 
   return (
     <button
+      data-testid='bookmark-button-container'
       className={ cn(`${className}__bookmark-button`,
         'button',
         { [`${className}__bookmark-button--active`]: isFavorite && isAuthorized }

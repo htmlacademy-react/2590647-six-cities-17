@@ -4,7 +4,7 @@ import { Path } from '../../const';
 function Footer(): JSX.Element {
   return (
 
-    <footer className="footer container">
+    <footer className="footer container" data-testid='footer-container'>
       <Link to={Path.Main} className="footer__logo-link" >
         <img
           className="footer__logo"
