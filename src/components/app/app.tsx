@@ -38,7 +38,7 @@ function App(): JSX.Element {
         <Route path={Path.Main} element={<MainPage/>} />
         <Route path={Path.Login} element={<LoginPage />} />
         <Route path={Path.Favorites} element={
-          <PrivateRoute>
+          <PrivateRoute authorizationStatus={isAuthorized}>
             <FavoritesPage/>
           </PrivateRoute>
         }

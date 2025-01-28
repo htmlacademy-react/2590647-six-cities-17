@@ -14,7 +14,7 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true,
 };
 
-const ShouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
+const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
 
 const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -54,7 +54,7 @@ export function createAPI (): AxiosInstance {
           errorMessage = error.response.data.message || 'The server is temporarily unavailable. Try it later.';
         }
 
-        if (ShouldDisplayError(error.response) && !shownErrors.has(errorMessage)) {
+        if (shouldDisplayError(error.response) && !shownErrors.has(errorMessage)) {
           toast.warn(errorMessage);
           shownErrors.add(errorMessage);
 

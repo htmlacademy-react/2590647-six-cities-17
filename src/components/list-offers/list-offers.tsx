@@ -10,7 +10,7 @@ function ListOffers({ offers, onHandleMouseOffer }: ListOffersProps): JSX.Elemen
 
   return (
 
-    <div className="cities__places-list places__list tabs__content">
+    <div className="cities__places-list places__list tabs__content" data-testid='cards-list-container'>
       {offers.map((offer) => (
         <Card key={offer.id} offer={offer} onHandleMouseOffer={onHandleMouseOffer}/>
       ))}

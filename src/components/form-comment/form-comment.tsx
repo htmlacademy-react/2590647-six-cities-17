@@ -65,7 +65,7 @@ function FormComment({ offerId }: CommentFormProbs): JSX.Element {
     }
   };
 
-  const isSubmitDisabled = isLoadingPostComments || !formData.rating || formData.review.length < MIN_LENGTH_COMMENT;
+  const isSubmitDisabled = isLoadingPostComments || !formData.rating || wordCount < MIN_LENGTH_COMMENT || wordCount > MAX_LENGTH_COMMENT;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
@@ -76,6 +76,7 @@ function FormComment({ offerId }: CommentFormProbs): JSX.Element {
         {[5, 4, 3, 2, 1].map((star) => (
           <React.Fragment key={star}>
             <input
+              data-testid={`${star}-rating`}
               className="form__rating-input visually-hidden"
               name="rating"
               value={star}
@@ -98,6 +99,7 @@ function FormComment({ offerId }: CommentFormProbs): JSX.Element {
         ))}
       </div>
       <textarea
+        data-testid='reviewElement'
         className="reviews__textarea form__textarea"
         id="review"
         name="review"

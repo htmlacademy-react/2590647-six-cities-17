@@ -1,6 +1,8 @@
 import { Offers } from './types/offer';
 import { Sort } from './const';
 
+export const toUpFirstLetter = (value: string) => value[0].toUpperCase() + value.slice(1);
+
 export const groupOffersByCity = (offers: Offers[]) =>
   offers.reduce((acc, offer) => {
     acc[offer.city.name] = acc[offer.city.name] || [];

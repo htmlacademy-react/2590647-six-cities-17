@@ -14,6 +14,7 @@ import FormComment from '../../components/form-comment/form-comment';
 import CommentsList from '../../components/comments-list/comments-list';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import { STAR_WIDTH_FACTOR, NEARBLY_OFFERS_COUNT, GALERY_IMAGES_COUNT } from '../../const';
+import { toUpFirstLetter } from '../../utils';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams();
@@ -48,6 +49,8 @@ function OfferPage(): JSX.Element {
   if (!offerById) {
     return <ErrorPage />;
   }
+
+  const offerType = toUpFirstLetter(offerById.type);
 
   return (
 
@@ -88,7 +91,7 @@ function OfferPage(): JSX.Element {
                 <span className="offer__rating-value rating__value">{offerById.rating}</span>
               </div>
               <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">{offerById.type}</li>
+                <li className="offer__feature offer__feature--entire">{offerType}</li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {offerById.bedrooms} {offerById.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
@@ -120,9 +123,6 @@ function OfferPage(): JSX.Element {
                   {offerById.host.isPro && <span className='offer__user-status'>Pro</span>}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">
-                    {offerById.description}
-                  </p>
                   <p className="offer__text">
                     {offerById.description}
                   </p>

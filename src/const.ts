@@ -78,7 +78,7 @@ export const NameSpace = {
   Main: 'MAIN',
 } as const;
 
-export const Markers = {
+export const mapMarker = {
   Default: '../public/img/pin.svg',
   Current: '../public/img/pin-active.svg',
 } as const;

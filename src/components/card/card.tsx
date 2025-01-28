@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Offers, Point } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { getUrlById } from '../../utils';
+import { getUrlById, toUpFirstLetter } from '../../utils';
 import { STAR_WIDTH_FACTOR } from '../../const';
 import FavoriteButton from '../favorite-button/favorite-button';
 
@@ -16,6 +16,12 @@ type CardProps = {
 function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOfferPage }: CardProps): JSX.Element {
   const cardUrl = getUrlById(offer.id);
   const isActive = offer.id === activeOfferId;
+  const offerType = useMemo(() => toUpFirstLetter(offer.type), [offer.type]);
+
+  const DEFAULT_IMG_WIDTH = 260;
+  const DEFAULT_IMG_HEIGHT = 210;
+  const FAVORITE_IMG_WIDTH = 150;
+  const FAVORITE_IMG_HEIGHT = 110;
 
   let cardClass = '';
   let imageWrapperClass = '';
@@ -46,6 +52,7 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
           onHandleMouseOffer(null);
         }
       }}
+      data-testid='place-card-container'
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -57,8 +64,8 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
           <img
             className="place-card__image"
             src={offer.previewImage}
-            width={isFavoritePage ? 150 : 260}
-            height={isFavoritePage ? 110 : 200}
+            width={isFavoritePage ? FAVORITE_IMG_WIDTH : DEFAULT_IMG_WIDTH}
+            height={isFavoritePage ? FAVORITE_IMG_HEIGHT : DEFAULT_IMG_HEIGHT}
             alt={offer.title}
           />
         </Link>
@@ -80,7 +87,7 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
         <h2 className="place-card__name">
           <Link to={cardUrl}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{offerType}</p>
       </div>
     </article>
   );
@@ -89,3 +96,4 @@ function Card({ offer, onHandleMouseOffer, activeOfferId, isFavoritePage, isOffe
 const CardMemoized = memo(Card, (prevProps, nextProps) => prevProps.offer === nextProps.offer);
 
 export default CardMemoized;
+
